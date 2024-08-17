@@ -5,6 +5,8 @@ metadata:
   name: {{ include "cloudflare-tunnel.fullname" . }}
 data:
   config.yaml: |
+    # The protocol to use for the tunnel
+    protocol: {{ .Values.cloudflare.protocol | default "quic" }}
     # Name of the tunnel you want to run
     tunnel: {{ .Values.cloudflare.tunnelName }}
     # The location of the secret containing the tunnel credentials

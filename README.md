@@ -14,6 +14,22 @@ helm repo update
 helm search repo cloudflare
 ```
 
+### Installation
+
+Make sure `cloudflare` namespace and its labels (privileged security) are created and initialized beforehand.
+
+```bash
+cd charts/cloudflare-tunnel
+helm upgrade --install cloudflare . --namespace cloudflare
+```
+
+### Uninstall
+
+```bash
+cd charts/cloudflare-tunnel
+helm uninstall cloudflare --namespace cloudflare
+```
+
 ### Contents
 
 - `charts/cloudflare-tunnel`: Helm 3 chart using cloudflared best practices

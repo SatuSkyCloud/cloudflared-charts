@@ -2,6 +2,8 @@
 
 # Cloudflare parameters.
 cloudflare:
+  # The protocol to use for the tunnel. Can be "quic" or "http2".
+  protocol: http2
   # Your Cloudflare account number.
   account: ""
   # The name of the tunnel this instance will serve
