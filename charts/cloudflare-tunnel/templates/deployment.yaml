@@ -56,9 +56,16 @@ spec:
               # it has an active connection to the edge.
               path: /ready
               port: 2000
-            failureThreshold: 1
-            initialDelaySeconds: 10
-            periodSeconds: 10
+            # Relaxed from upstream defaults (failureThreshold:1, initialDelaySeconds:10).
+            # Establishing the edge connection (DNS lookups, region selection, HTTP/2 setup)
+            # can take 15-25s on the slowest control-plane node, especially after a node
+            # reboot or network policy change. failureThreshold:1 + 1s timeout was killing
+            # cp-main-01's pod into a permanent crash loop. New values give cloudflared
+            # a realistic startup window without hiding genuine connectivity loss.
+            initialDelaySeconds: 30
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
           volumeMounts:
             - name: config
               mountPath: /etc/cloudflared/config
